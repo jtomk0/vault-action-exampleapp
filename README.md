@@ -1,3 +1,3 @@
-# Learn Vault GitHub Actions
+# Demoing Vault GitHub Actions
 
-Content to support the [Vault GitHub Actions](https://developer.hashicorp.com/vault/tutorials/app-integration/github-actions) tutoral.
+Demo for the [Vault GitHub Action](https://github.com/marketplace/actions/hashicorp-vault).
