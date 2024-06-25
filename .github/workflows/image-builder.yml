@@ -15,7 +15,8 @@ jobs:
           url: ${{ secrets.VAULT_ADDR }}
           tlsSkipVerify: true
           role: ci-secret-role
-          method: jwtgh
+          method: jwt
+          path: jwtgh
           secrets: |
             secret/data/ci app_secret
       - name: Build Docker Image
