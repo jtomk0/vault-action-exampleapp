@@ -1,3 +1,4 @@
 .DS_Store
 vault-github-action/.git
 vault-github-action/.github
+*.code-workspace
