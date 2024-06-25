@@ -1,5 +1,5 @@
 FROM ruby:latest
-MAINTAINER HashiCorp Vault Education <team-vault-education@hashicorp.com>
+LABEL maintainer="HashiCorp Vault Education <team-vault-education@hashicorp.com>"
 
 ARG app_secret="UNSET_SECRET_PLEASE_OVERRIDE"
 
