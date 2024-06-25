@@ -12,7 +12,7 @@ jobs:
       - name: Import Secrets
         uses: hashicorp/vault-action@v2
         with:
-          url: https://vault-cluster-1-public-vault-398f0c28.5bc9e4b4.z1.hashicorp.cloud:8200
+          url: ${{ secrets.VAULT_TOKEN }}
           tlsSkipVerify: true
           role: ci-secret-role
           method: jwt
