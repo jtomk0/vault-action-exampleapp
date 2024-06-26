@@ -27,6 +27,8 @@ jobs:
       - name: Import AppRole roleid
         id: roleid
         run: |
+          echo "${{ steps.secrets.outputs.vault_token }}"
+          echo "${{ secrets.VAULT_ADDR }}"
           roleid=$(curl \
           --header "X-Vault-Token: ${{ steps.secrets.outputs.vault_token }}" \
           --header "X-Vault-Namespace: admin" \
