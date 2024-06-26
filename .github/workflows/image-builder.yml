@@ -24,12 +24,12 @@ jobs:
           outputToken: true
           secrets: |
             secret/data/ci app_secret
-      - name: Import AppRole role-id
-        id: role-id
+      - name: Import AppRole roleid
+        id: roleid
         run: |
-          role-id=$(curl \
+          roleid=$(curl \
           --header "X-Vault-Token: '${{ steps.secrets.outputs.vault_token }}'" \
           --header "X-Vault-Namespace: admin" \
-          ${{ secrets.VAULT_ADDR }}/v1/auth/approle/role/vault-actions-exampleapp-prod/role-id); echo "role-id=$role-id" >> $GITHUB_OUTPUT
+          ${{ secrets.VAULT_ADDR }}/v1/auth/approle/role/vault-actions-exampleapp-prod/role-id); echo "roleid=$roleid" >> $GITHUB_OUTPUT
       - name: Build Docker Image
-        run: docker build . --file vault-github-action/Dockerfile --build-arg app_secret="${{ steps.role-id.outputs.role-id }}" -t    vault-action-exampleapp
+        run: docker build . --file vault-github-action/Dockerfile --build-arg app_secret="${{ steps.role-id.outputs.roleid }}" -t    vault-action-exampleapp
