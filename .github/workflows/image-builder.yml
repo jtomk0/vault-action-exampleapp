@@ -28,7 +28,7 @@ jobs:
         id: roleid
         run: |
           roleid=$(curl \
-          --header "X-Vault-Token: '${{ steps.secrets.outputs.vault_token }}'" \
+          --header "X-Vault-Token: ${{ steps.secrets.outputs.vault_token }}" \
           --header "X-Vault-Namespace: admin" \
           ${{ secrets.VAULT_ADDR }}/v1/auth/approle/role/vault-actions-exampleapp-prod/role-id); echo "roleid=$roleid" >> $GITHUB_OUTPUT
       - name: Build Docker Image
