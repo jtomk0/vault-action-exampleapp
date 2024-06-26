@@ -21,7 +21,6 @@ jobs:
           method: jwt
           path: jwtgh
           namespace: admin
-          exportToken: true
           outputToken: true
           secrets: |
             secret/data/ci app_secret
@@ -29,9 +28,11 @@ jobs:
         id: wrappingtoken
         run: |
           token=$(curl \
+          --header "X-Vault-Wrap-TTL: 300" \
           --header "X-Vault-Token: ${{ steps.secrets.outputs.vault_token }}" \
           --header "X-Vault-Namespace: admin" \
-          ${{ secrets.VAULT_ADDR }}/v1/auth/approle/role/vault-actions-exampleapp-prod/role-id | jq .data.role_id);
+          --request POST \
+          ${{ secrets.VAULT_ADDR }}/v1/auth/approle/role/vault-actions-exampleapp-prod/secret-id | jq .wrap_info.token);
           echo "::add-mask::$token"
           echo "token=$token" >> $GITHUB_OUTPUT
       - name: Build Docker Image
