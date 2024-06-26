@@ -21,16 +21,17 @@ jobs:
           method: jwt
           path: jwtgh
           namespace: admin
+          exportToken: true
           outputToken: true
           secrets: |
             secret/data/ci app_secret
       - name: Import AppRole roleid
         id: roleid
         run: |
-          echo "${{ steps.secrets.outputs.vault_token }}"
+          echo "${{ env.VAULT_TOKEN }}"
           echo "${{ secrets.VAULT_ADDR }}"
           roleid=$(curl \
-          --header "X-Vault-Token: ${{ steps.secrets.outputs.vault_token }}" \
+          --header "X-Vault-Token: ${{ env.VAULT_TOKEN }}" \
           --header "X-Vault-Namespace: admin" \
           ${{ secrets.VAULT_ADDR }}/v1/auth/approle/role/vault-actions-exampleapp-prod/role-id); echo "roleid=$roleid" >> $GITHUB_OUTPUT
       - name: Build Docker Image
