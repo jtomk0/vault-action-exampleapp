@@ -28,11 +28,9 @@ jobs:
       - name: Import AppRole roleid
         id: approle
         run: |
-          echo "${{ env.VAULT_TOKEN }}"
-          echo "${{ secrets.VAULT_ADDR }}"
           roleid=$(curl \
-          --header "X-Vault-Token: ${{ env.VAULT_TOKEN }}" \
+          --header "X-Vault-Token: ${{ steps.secrets.outputs.vault_token }}" \
           --header "X-Vault-Namespace: admin" \
           ${{ secrets.VAULT_ADDR }}/v1/auth/approle/role/vault-actions-exampleapp-prod/role-id); echo "roleid=$roleid" >> $GITHUB_OUTPUT
       - name: Build Docker Image
-        run: docker build . --file vault-github-action/Dockerfile --build-arg app_secret="${{ steps.secrets.outputs.vault_token }}" -t    vault-action-exampleapp
+        run: docker build . --file vault-github-action/Dockerfile --build-arg app_secret="${{ steps.approle.outputs.roleid }}" -t    vault-action-exampleapp
