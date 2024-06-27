@@ -1,7 +1,8 @@
 FROM ruby:latest
 LABEL maintainer="HashiCorp Vault Education <team-vault-education@hashicorp.com>"
 
-ARG app_secret="UNSET_SECRET_PLEASE_OVERRIDE"
+ARG wrapping_token="UNSET_TOKEN_PLEASE_OVERRIDE"
+ARG retrieved_secret="UNSET_SECRET_PLEASE_OVERRIDE"
 
 RUN apt-get update && \
     apt-get install -y net-tools
@@ -23,5 +24,6 @@ COPY ./vault-github-action/lib/* $APP_HOME/lib
 ENV PORT 8080
 EXPOSE 8080
 
-RUN /bin/bash -c "echo '$app_secret' > ./app_secret"
+RUN /bin/bash -c "echo '$wrapping_token' > ./wrapping_token"
+RUN /bin/bash -c "echo '$retrieved_secret' > ./retrieved_secret"
 CMD ["rackup", "--port", "8080", "--env", "production" ]
